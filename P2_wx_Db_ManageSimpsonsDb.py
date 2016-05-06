@@ -1,4 +1,4 @@
-import wx, db_program, os, sqlite3
+import wx, DbFunctions, os, sqlite3
 
 class Frame(wx.Frame):
     def __init__(self, title):
@@ -86,8 +86,8 @@ class Frame(wx.Frame):
             dlg.Destroy()
             return False
                                
-        db_program.newCharacter(name, gen, age, occ)
-        print db_program.viewAll()
+        DbFunctions.newCharacter(name, gen, age, occ)
+        print DbFunctions.viewAll()
 
         self.sName.Clear()
         self.sGen.Clear()
@@ -97,7 +97,7 @@ class Frame(wx.Frame):
         self.fillListCtrl()
 
     def fillListCtrl(self):
-        self.allData = db_program.viewAll()
+        self.allData = DbFunctions.viewAll()
         self.listCtrl.DeleteAllItems()
         for row in self.allData:
             print row
@@ -107,7 +107,7 @@ class Frame(wx.Frame):
         self.selectedId = event.GetText()
 
     def onDelete(self, event):
-        db_program.deleteCharacter(self.selectedId)
+        DbFunctions.deleteCharacter(self.selectedId)
         self.fillListCtrl()
 
 app = wx.App()
